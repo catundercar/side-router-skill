@@ -1,0 +1,3 @@
+interface:
+  display_name: "Side Router Skill"
+  short_description: "Deploy and troubleshoot Ubuntu side routers"

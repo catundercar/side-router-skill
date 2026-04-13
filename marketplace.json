@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "name": "side-router-skill",
+  "display_name": "Side Router Skill",
+  "description": "Open-source deployment-first AI skill for Ubuntu side routers using AdGuardHome, Mihomo/Clash Meta, and TProxy.",
+  "entry": "./SKILL.md",
+  "adapters": {
+    "codex": "./SKILL.md",
+    "claude_code": "./.claude/agents/side-router-deploy.md",
+    "cursor": "./.cursor/rules/side-router-deploy.mdc",
+    "generic": "./AGENTS.md"
+  }
+}

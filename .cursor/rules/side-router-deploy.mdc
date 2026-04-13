@@ -1,0 +1,24 @@
+---
+description: Ubuntu side-router deployment and troubleshooting using AdGuardHome, Mihomo/Clash Meta, and TProxy.
+---
+
+# Side Router Deploy
+
+Use this rule when working on Ubuntu side-router deployment, review, or outage diagnosis.
+
+## Safety
+
+- Treat gateway, DNS, iptables, TProxy, and service restart changes as high risk.
+- Prefer planning mode unless the user explicitly asks for direct execution and provides login access.
+- Always produce rollback steps for risky changes.
+- If the user reports no internet, guide temporary gateway and DNS recovery first.
+
+## References
+
+- `references/risk-policy.md`
+- `references/deployment-inputs.md`
+- `references/architecture.md`
+- `references/deployment.md`
+- `references/troubleshooting.md`
+- `references/offline-recovery.md`
+- `references/faq.md`

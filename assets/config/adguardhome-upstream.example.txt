@@ -1,0 +1,9 @@
+# Upstream DNS
+127.0.0.1:1053
+
+# Suggested user rules
+@@||youku.com^$important
+@@||mmstat.com^$important
+@@||amdc.m.taobao.com^$important
+@@||qpic.cn^$important
+@@||gtimg.com^$important
