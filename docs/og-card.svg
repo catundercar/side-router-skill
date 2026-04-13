@@ -1,0 +1,19 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#F7F0E4"/>
+  <circle cx="1027" cy="91" r="160" fill="#0F6A5C" fill-opacity="0.12"/>
+  <circle cx="145" cy="572" r="212" fill="#CF6A33" fill-opacity="0.12"/>
+  <rect x="70" y="60" width="1060" height="510" rx="38" fill="#FFF9F1" stroke="#E6D6BF" stroke-width="2"/>
+  <rect x="108" y="104" width="168" height="168" rx="34" fill="#0F6A5C"/>
+  <rect x="143" y="139" width="98" height="98" rx="22" fill="#FFF8EF"/>
+  <path d="M163 168H221" stroke="#CF6A33" stroke-width="11" stroke-linecap="round"/>
+  <path d="M163 191H207" stroke="#1F1B16" stroke-width="11" stroke-linecap="round"/>
+  <path d="M163 214H191" stroke="#1F1B16" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="216" cy="214" r="16" fill="#0F6A5C"/>
+  <path d="M211 214L215 218L222 209" stroke="#FFF8EF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="320" y="186" fill="#1F1B16" font-family="Avenir Next, PingFang SC, Noto Sans SC, sans-serif" font-size="82" font-weight="700" letter-spacing="-3">Side Router Skill</text>
+  <text x="322" y="248" fill="#0F6A5C" font-family="Avenir Next, PingFang SC, Noto Sans SC, sans-serif" font-size="26" font-weight="600">Deploy-first AI skill for Ubuntu side routers</text>
+  <text x="108" y="356" fill="#66594D" font-family="Avenir Next, PingFang SC, Noto Sans SC, sans-serif" font-size="30">AdGuardHome + Mihomo / Clash Meta + TProxy + fake-ip</text>
+  <text x="108" y="410" fill="#66594D" font-family="Avenir Next, PingFang SC, Noto Sans SC, sans-serif" font-size="28">部署规划、配置模板、上线检查、回滚设计、离线恢复</text>
+  <rect x="108" y="455" width="240" height="58" rx="29" fill="#1F1B16"/>
+  <text x="149" y="493" fill="#FFF8EF" font-family="Avenir Next, PingFang SC, Noto Sans SC, sans-serif" font-size="24" font-weight="600">catundercar.github.io</text>
+</svg>

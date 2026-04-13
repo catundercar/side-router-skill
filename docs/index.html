@@ -8,16 +8,44 @@
       name="description"
       content="Deploy-first AI skill for Ubuntu side routers with AdGuardHome, Mihomo/Clash Meta, and TProxy."
     />
+    <meta name="theme-color" content="#f5eee0" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="https://catundercar.github.io/side-router-skill/" />
+
+    <meta property="og:title" content="Side Router Skill" />
+    <meta
+      property="og:description"
+      content="一个面向 Ubuntu 旁路由部署的开源 AI skill，覆盖 AdGuardHome、Mihomo / Clash Meta、TProxy、fake-ip、上线检查和离线恢复。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://catundercar.github.io/side-router-skill/" />
+    <meta
+      property="og:image"
+      content="https://catundercar.github.io/side-router-skill/og-card.svg"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Side Router Skill" />
+    <meta
+      name="twitter:description"
+      content="Deploy-first AI skill for Ubuntu side routers with AdGuardHome, Mihomo / Clash Meta, and TProxy."
+    />
+    <meta
+      name="twitter:image"
+      content="https://catundercar.github.io/side-router-skill/og-card.svg"
+    />
+
     <style>
       :root {
-        --bg: #f6f3eb;
-        --paper: rgba(255, 251, 242, 0.9);
-        --ink: #1f1a14;
-        --muted: #5c5147;
-        --accent: #0e6b5c;
-        --accent-2: #d76a34;
-        --line: rgba(31, 26, 20, 0.12);
-        --shadow: 0 24px 80px rgba(34, 26, 16, 0.1);
+        --bg: #f6f1e7;
+        --surface: rgba(255, 251, 244, 0.88);
+        --surface-strong: rgba(255, 248, 239, 0.96);
+        --ink: #1f1b16;
+        --muted: #66594d;
+        --line: rgba(31, 27, 22, 0.12);
+        --teal: #0f6a5c;
+        --orange: #cf6a33;
+        --shadow: 0 24px 70px rgba(31, 27, 22, 0.09);
       }
 
       * {
@@ -30,26 +58,87 @@
 
       body {
         margin: 0;
+        color: var(--ink);
         font-family: "Avenir Next", "PingFang SC", "Noto Sans SC", "Segoe UI",
           sans-serif;
-        color: var(--ink);
         background:
-          radial-gradient(circle at top left, rgba(215, 106, 52, 0.16), transparent 28%),
-          radial-gradient(circle at top right, rgba(14, 107, 92, 0.18), transparent 24%),
-          linear-gradient(180deg, #faf7f0 0%, #f2ece0 100%);
+          radial-gradient(circle at top left, rgba(207, 106, 51, 0.18), transparent 26%),
+          radial-gradient(circle at top right, rgba(15, 106, 92, 0.18), transparent 22%),
+          linear-gradient(180deg, #faf6ee 0%, #f4ecde 100%);
       }
 
       a {
         color: inherit;
       }
 
+      code,
+      pre {
+        font-family: "SFMono-Regular", "SF Mono", "JetBrains Mono", monospace;
+      }
+
       .wrap {
-        width: min(1120px, calc(100vw - 32px));
+        width: min(1140px, calc(100vw - 28px));
         margin: 0 auto;
       }
 
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(12px);
+        background: rgba(246, 241, 231, 0.82);
+        border-bottom: 1px solid rgba(31, 27, 22, 0.06);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 68px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .brand-badge {
+        width: 38px;
+        height: 38px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        color: #fff7ef;
+        background: linear-gradient(135deg, var(--teal), #1b8e72);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      }
+
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .nav a {
+        padding: 10px 12px;
+        border-radius: 999px;
+        text-decoration: none;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .nav a:hover {
+        background: rgba(31, 27, 22, 0.05);
+        color: var(--ink);
+      }
+
       .hero {
-        padding: 56px 0 28px;
+        padding: 42px 0 20px;
       }
 
       .hero-card {
@@ -57,7 +146,7 @@
         overflow: hidden;
         border: 1px solid var(--line);
         border-radius: 28px;
-        background: linear-gradient(135deg, rgba(255, 251, 242, 0.96), rgba(244, 236, 223, 0.94));
+        background: linear-gradient(135deg, rgba(255, 251, 244, 0.98), rgba(243, 234, 220, 0.95));
         box-shadow: var(--shadow);
         padding: 34px;
       }
@@ -67,34 +156,34 @@
         align-items: center;
         gap: 8px;
         padding: 8px 12px;
-        border: 1px solid rgba(14, 107, 92, 0.2);
         border-radius: 999px;
-        background: rgba(14, 107, 92, 0.08);
-        color: var(--accent);
+        border: 1px solid rgba(15, 106, 92, 0.18);
+        background: rgba(15, 106, 92, 0.08);
+        color: var(--teal);
         font-size: 13px;
-        letter-spacing: 0.06em;
         text-transform: uppercase;
+        letter-spacing: 0.06em;
       }
 
       h1 {
         margin: 18px 0 14px;
-        font-size: clamp(42px, 7vw, 82px);
-        line-height: 0.95;
-        letter-spacing: -0.05em;
+        font-size: clamp(44px, 7vw, 88px);
+        line-height: 0.92;
+        letter-spacing: -0.055em;
       }
 
       .lede {
         max-width: 760px;
-        color: var(--muted);
         font-size: 18px;
-        line-height: 1.75;
+        line-height: 1.8;
+        color: var(--muted);
       }
 
       .hero-actions {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
-        margin-top: 26px;
+        margin-top: 24px;
       }
 
       .btn {
@@ -111,12 +200,32 @@
 
       .btn-primary {
         background: var(--ink);
-        color: #fff8ef;
+        color: #fff7ef;
         border-color: var(--ink);
       }
 
       .btn-secondary {
         background: rgba(255, 255, 255, 0.55);
+      }
+
+      .pill-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .pill {
+        padding: 9px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(15, 106, 92, 0.18);
+        background: rgba(15, 106, 92, 0.08);
+        color: var(--teal);
+        font-size: 14px;
+      }
+
+      section[id] {
+        scroll-margin-top: 88px;
       }
 
       .grid {
@@ -129,10 +238,13 @@
       .panel {
         border: 1px solid var(--line);
         border-radius: 22px;
-        background: var(--paper);
-        box-shadow: 0 12px 40px rgba(34, 26, 16, 0.06);
         padding: 24px;
-        backdrop-filter: blur(10px);
+        background: var(--surface);
+        box-shadow: 0 12px 42px rgba(31, 27, 22, 0.06);
+      }
+
+      .span-12 {
+        grid-column: span 12;
       }
 
       .span-8 {
@@ -147,21 +259,27 @@
         grid-column: span 4;
       }
 
+      .risk {
+        background: linear-gradient(180deg, rgba(255, 241, 233, 0.94), rgba(255, 249, 242, 0.92));
+        border-color: rgba(207, 106, 51, 0.28);
+      }
+
       h2 {
         margin: 0 0 14px;
-        font-size: 26px;
+        font-size: 28px;
         letter-spacing: -0.04em;
       }
 
       h3 {
         margin: 0 0 10px;
-        font-size: 18px;
+        font-size: 19px;
       }
 
       p,
       li {
+        margin: 0;
         color: var(--muted);
-        line-height: 1.75;
+        line-height: 1.78;
       }
 
       ul {
@@ -169,50 +287,70 @@
         padding-left: 18px;
       }
 
-      .risk {
-        border-color: rgba(215, 106, 52, 0.35);
-        background: linear-gradient(180deg, rgba(255, 242, 232, 0.96), rgba(255, 248, 241, 0.92));
+      .stack {
+        display: grid;
+        gap: 16px;
       }
 
-      .code {
+      .snippet {
         margin-top: 14px;
-        padding: 14px 16px;
-        border-radius: 16px;
-        background: #201b16;
-        color: #f6efe3;
-        font-family: "SFMono-Regular", "SF Mono", "JetBrains Mono", monospace;
+        padding: 15px 16px;
+        border-radius: 18px;
+        background: #1f1a16;
+        color: #f7efe4;
+        overflow-x: auto;
         font-size: 13px;
         line-height: 1.7;
-        overflow-x: auto;
       }
 
-      .pill-list {
-        display: flex;
-        flex-wrap: wrap;
+      .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 18px;
+        background: var(--surface-strong);
+      }
+
+      .link-list {
+        display: grid;
         gap: 10px;
-        margin-top: 18px;
       }
 
-      .pill {
-        padding: 10px 12px;
-        border-radius: 999px;
-        background: rgba(14, 107, 92, 0.08);
-        border: 1px solid rgba(14, 107, 92, 0.16);
-        color: var(--accent);
-        font-size: 14px;
+      .doc-link {
+        display: block;
+        padding: 14px 16px;
+        border-radius: 16px;
+        text-decoration: none;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      .doc-link strong {
+        display: block;
+        margin-bottom: 4px;
       }
 
       .footer {
-        padding: 0 0 48px;
+        padding: 0 0 46px;
         color: var(--muted);
         font-size: 14px;
       }
 
-      @media (max-width: 860px) {
+      @media (max-width: 900px) {
+        .span-12,
         .span-8,
         .span-6,
         .span-4 {
           grid-column: 1 / -1;
+        }
+
+        .mini-grid {
+          grid-template-columns: 1fr;
         }
 
         .hero-card,
@@ -220,24 +358,47 @@
           padding: 20px;
         }
 
+        .topbar-inner {
+          min-height: auto;
+          padding: 12px 0;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
         .hero {
-          padding-top: 24px;
+          padding-top: 22px;
         }
       }
     </style>
   </head>
   <body>
-    <div class="wrap">
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="brand" href="#top">
+          <span class="brand-badge">SR</span>
+          <span>Side Router Skill</span>
+        </a>
+        <nav class="nav">
+          <a href="#risk">风险</a>
+          <a href="#install">安装</a>
+          <a href="#inputs">输入</a>
+          <a href="#prompts">Prompts</a>
+          <a href="#docs">文档</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap" id="top">
       <section class="hero">
         <div class="hero-card">
-          <div class="eyebrow">Deployment-first AI Skill</div>
+          <div class="eyebrow">Deploy-first AI Skill</div>
           <h1>Side Router Skill</h1>
           <p class="lede">
-            一个面向 Ubuntu 旁路由的开源 AI skill。它优先解决部署规划、配置生成、上线检查和回滚设计，
-            同时覆盖 DNS、网关、TProxy、fake-ip、AI 分流和断网后的恢复指引。
+            一个面向 Ubuntu 旁路由部署的开源 AI skill。它优先解决部署规划、配置生成、上线检查和回滚设计，
+            同时覆盖 DNS、网关、TProxy、fake-ip、AI 分流以及断网后的恢复指引。
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="https://github.com/catundercar/side-router-skill">GitHub</a>
+            <a class="btn btn-primary" href="https://github.com/catundercar/side-router-skill">GitHub 仓库</a>
             <a class="btn btn-secondary" href="https://github.com/catundercar/side-router-skill/blob/main/README.md">README</a>
             <a class="btn btn-secondary" href="https://github.com/catundercar/side-router-skill/blob/main/references/offline-recovery.md">离线恢复</a>
           </div>
@@ -246,45 +407,77 @@
             <span class="pill">Mihomo / Clash Meta</span>
             <span class="pill">TProxy</span>
             <span class="pill">fake-ip</span>
-            <span class="pill">Codex / Claude Code / Cursor</span>
+            <span class="pill">Codex</span>
+            <span class="pill">Claude Code</span>
+            <span class="pill">Cursor</span>
           </div>
         </div>
       </section>
 
-      <section class="grid">
+      <section class="grid" id="risk">
         <article class="panel span-8 risk">
           <h2>高风险提示</h2>
-          <p>
-            这是高风险网络改造 skill。它可能影响默认网关、DNS、透明代理和整段局域网的可用性。
-            默认应先用规划部署模式确认方案、检查项和回滚方案，再决定是否允许 AI 代执行。
-          </p>
           <ul>
-            <li>不要在没有本地控制台或物理接入能力时盲改 DHCP、DNS、iptables 或关键服务。</li>
-            <li>如果已经断网，先恢复一台测试设备的网关和 DNS，再继续排障。</li>
-            <li>fake-ip 不是中性配置，它会直接影响视频、腾讯游戏语音、微信图片和部分 AI 子域名。</li>
+            <li>这个 skill 会直接涉及默认网关、DNS、iptables、TProxy 和关键 systemd 服务。</li>
+            <li>让 AI 直接执行部署时，可能导致 SSH 断连、全网断网、DNS 全部失效。</li>
+            <li>默认应该先用规划部署模式生成方案、验证清单和回滚步骤，再决定是否代执行。</li>
+            <li>如果用户已经没网，先恢复一台测试设备的网关和 DNS，再继续排障。</li>
+            <li>`fake-ip` 不是中性设置，需要和 `DIRECT` 规则、AdGuardHome 放行规则一起设计。</li>
           </ul>
         </article>
 
         <article class="panel span-4">
-          <h2>支持宿主</h2>
-          <ul>
-            <li>Codex: <code>SKILL.md</code></li>
-            <li>Claude Code: <code>.claude/agents/</code></li>
-            <li>Cursor: <code>.cursor/rules/</code></li>
-            <li>Generic agents: <code>AGENTS.md</code></li>
-          </ul>
+          <h2>适用场景</h2>
+          <div class="stack">
+            <div class="card">
+              <h3>规划部署</h3>
+              <p>生成部署步骤、配置模板、上线验证和回滚清单。</p>
+            </div>
+            <div class="card">
+              <h3>审查现有部署</h3>
+              <p>检查网关接管、DNS 链路、TProxy 和 AI 分流是否合理。</p>
+            </div>
+            <div class="card">
+              <h3>断网恢复</h3>
+              <p>先恢复一台设备联网，再采集诊断信息交给 AI 分析。</p>
+            </div>
+          </div>
         </article>
+      </section>
 
-        <article class="panel span-6">
-          <h2>部署模式</h2>
-          <h3>规划部署模式</h3>
-          <p>默认模式，不需要 SSH 登录信息。用于生成部署步骤、配置模板、systemd 规范、上线检查单和回滚步骤。</p>
-          <h3>代执行部署模式</h3>
-          <p>只有用户明确授权并提供登录方式、提权路径、断网容忍度和恢复通道时才适合启用。</p>
+      <section class="grid" id="install">
+        <article class="panel span-12">
+          <h2>安装方式</h2>
+          <div class="mini-grid">
+            <div class="card">
+              <h3>Codex</h3>
+              <p>复制整个目录到技能仓库，或放到 <code>~/.codex/skills/side-router-skill/</code>。</p>
+              <div class="snippet">SKILL.md
+agents/openai.yaml</div>
+            </div>
+            <div class="card">
+              <h3>Claude Code</h3>
+              <p>项目级使用时保留 <code>.claude/agents/side-router-deploy.md</code>。</p>
+              <div class="snippet">.claude/agents/side-router-deploy.md</div>
+            </div>
+            <div class="card">
+              <h3>Cursor</h3>
+              <p>项目级使用时保留 <code>.cursor/rules/side-router-deploy.mdc</code>。</p>
+              <div class="snippet">.cursor/rules/side-router-deploy.mdc</div>
+            </div>
+            <div class="card">
+              <h3>其他 Agent</h3>
+              <p>不支持专用 skill 结构时，使用 <code>AGENTS.md</code> 和 <code>README.md</code>。</p>
+              <div class="snippet">AGENTS.md
+README.md</div>
+            </div>
+          </div>
         </article>
+      </section>
 
+      <section class="grid" id="inputs">
         <article class="panel span-6">
-          <h2>最小输入</h2>
+          <h2>默认输入</h2>
           <ul>
             <li>主路由 IP</li>
             <li>旁路由目标 IP</li>
@@ -296,9 +489,20 @@
           </ul>
         </article>
 
-        <article class="panel span-8">
+        <article class="panel span-6">
+          <h2>代执行额外输入</h2>
+          <ul>
+            <li>SSH 地址或可用终端</li>
+            <li>登录用户名</li>
+            <li>提权方式：<code>sudo</code> 或 <code>root</code></li>
+            <li>是否接受短时断网</li>
+            <li>是否有本地控制台或物理接入兜底</li>
+          </ul>
+        </article>
+
+        <article class="panel span-12">
           <h2>推荐提问模板</h2>
-          <div class="code">目标：规划部署 / 审查现有部署 / 排查故障 / 断网恢复
+          <div class="snippet">目标：规划部署 / 审查现有部署 / 排查故障 / 断网恢复
 主路由 IP：
 旁路由 IP：
 Ubuntu 版本：
@@ -313,24 +517,92 @@ AI 分流目标：美国 / 台湾 / 美国+台湾
 是否允许 AI 代执行：
 是否有本地控制台兜底：</div>
         </article>
+      </section>
 
-        <article class="panel span-4">
-          <h2>关键文档</h2>
-          <ul>
-            <li><a href="https://github.com/catundercar/side-router-skill/blob/main/references/deployment.md">部署流程</a></li>
-            <li><a href="https://github.com/catundercar/side-router-skill/blob/main/references/troubleshooting.md">排障手册</a></li>
-            <li><a href="https://github.com/catundercar/side-router-skill/blob/main/references/offline-recovery.md">离线恢复</a></li>
-            <li><a href="https://github.com/catundercar/side-router-skill/blob/main/references/faq.md">FAQ / fake-ip</a></li>
-          </ul>
+      <section class="grid" id="prompts">
+        <article class="panel span-12">
+          <h2>示例 Prompts</h2>
+          <div class="mini-grid">
+            <div class="card">
+              <h3>规划部署</h3>
+              <div class="snippet">帮我为 Ubuntu 旁路由规划一套 AdGuardHome + Mihomo + TProxy 部署，
+主路由是 192.168.31.1，旁路由准备用 192.168.31.147，
+客户端网关和 DNS 都打算指向旁路由，
+请输出部署顺序、配置模板、上线前检查和回滚方案。</div>
+            </div>
+            <div class="card">
+              <h3>审查现有配置</h3>
+              <div class="snippet">审查我的旁路由配置，重点看 fake-ip、AI_US 分流、
+腾讯语音直连、策略路由持久化是否完整。
+下面是 dns、proxy-groups、rules 和 systemd 配置片段：...</div>
+            </div>
+            <div class="card">
+              <h3>断网恢复</h3>
+              <div class="snippet">我改完旁路由后全网断网了。请先给我最小恢复步骤，
+目标是先恢复一台测试设备联网，再指导我采集排障信息。
+主路由 192.168.31.1，旁路由 192.168.31.147。</div>
+            </div>
+            <div class="card">
+              <h3>fake-ip 排障</h3>
+              <div class="snippet">AI 网站能打开，但 claudeusercontent.com 和 oaistatic.com 异常，
+同时微信图片变慢。请判断是 fake-ip、DIRECT 规则还是 DNS 链路问题，
+并给我逐步验证方法。</div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid" id="docs">
+        <article class="panel span-6">
+          <h2>文档导航</h2>
+          <div class="link-list">
+            <a class="doc-link" href="https://github.com/catundercar/side-router-skill/blob/main/references/deployment.md">
+              <strong>Deployment</strong>
+              <span>部署流程、systemd、TProxy、验证步骤</span>
+            </a>
+            <a class="doc-link" href="https://github.com/catundercar/side-router-skill/blob/main/references/troubleshooting.md">
+              <strong>Troubleshooting</strong>
+              <span>常见故障模式和最小诊断信息</span>
+            </a>
+            <a class="doc-link" href="https://github.com/catundercar/side-router-skill/blob/main/references/offline-recovery.md">
+              <strong>Offline Recovery</strong>
+              <span>先恢复单机联网，再继续让 AI 排障</span>
+            </a>
+            <a class="doc-link" href="https://github.com/catundercar/side-router-skill/blob/main/references/faq.md">
+              <strong>FAQ / fake-ip</strong>
+              <span>视频、游戏、AI 子域名、策略路由等高频问题</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="panel span-6">
+          <h2>开源仓库</h2>
+          <div class="link-list">
+            <a class="doc-link" href="https://github.com/catundercar/side-router-skill">
+              <strong>GitHub Repository</strong>
+              <span>查看源码、README、Pages 和后续更新</span>
+            </a>
+            <a class="doc-link" href="https://github.com/catundercar/side-router-skill/blob/main/SKILL.md">
+              <strong>Codex Skill Entry</strong>
+              <span>Codex 使用的标准入口</span>
+            </a>
+            <a class="doc-link" href="https://github.com/catundercar/side-router-skill/blob/main/.claude/agents/side-router-deploy.md">
+              <strong>Claude Code Agent</strong>
+              <span>Claude Code 的项目级 agent 入口</span>
+            </a>
+            <a class="doc-link" href="https://github.com/catundercar/side-router-skill/blob/main/.cursor/rules/side-router-deploy.mdc">
+              <strong>Cursor Rule</strong>
+              <span>Cursor 项目规则入口</span>
+            </a>
+          </div>
         </article>
       </section>
 
       <div class="footer">
         <p>
-          Open-source deployment-first AI skill for Ubuntu side routers.
-          Prefer planning before execution.
+          Open-source deployment-first AI skill for Ubuntu side routers. Prefer planning before execution.
         </p>
       </div>
-    </div>
+    </main>
   </body>
   </html>
