@@ -379,6 +379,7 @@
           <span>Side Router Skill</span>
         </a>
         <nav class="nav">
+          <a href="#features">功能</a>
           <a href="#risk">风险</a>
           <a href="#install">安装</a>
           <a href="#inputs">输入</a>
@@ -412,6 +413,38 @@
             <span class="pill">Cursor</span>
           </div>
         </div>
+      </section>
+
+      <section class="grid" id="features">
+        <article class="panel span-8">
+          <h2>软路由能做什么</h2>
+          <ul>
+            <li>接管局域网设备默认网关，让所有流量先进入旁路由再做统一分流。</li>
+            <li>接管 DNS，把 <code>AdGuardHome -&gt; Mihomo DNS</code> 串成一条稳定的解析与过滤链路。</li>
+            <li>用 <code>TProxy + iptables + policy routing</code> 对 TCP 流量做透明代理，减少终端逐台配置。</li>
+            <li>给 AI 相关域名配置专用节点池，让 OpenAI、Claude、Cursor 的出口更稳定。</li>
+            <li>让国内视频、微信、腾讯游戏、语音链路优先直连，降低 fake-ip 和误代理带来的兼容性问题。</li>
+            <li>用 <code>proxy-providers</code> 管理订阅，把节点更新和主配置分离，避免规则被覆盖。</li>
+          </ul>
+        </article>
+
+        <article class="panel span-4">
+          <h2>适合的网络</h2>
+          <div class="stack">
+            <div class="card">
+              <h3>家庭网络</h3>
+              <p>统一 DNS、分流和 AI 出口，不需要每台终端分别装代理。</p>
+            </div>
+            <div class="card">
+              <h3>小型办公网络</h3>
+              <p>对 AI 工具和常用外站做统一出口治理，同时保留国内服务直连。</p>
+            </div>
+            <div class="card">
+              <h3>高兼容性场景</h3>
+              <p>需要同时兼顾视频、微信、腾讯游戏、语音链路和 AI 服务时更有价值。</p>
+            </div>
+          </div>
+        </article>
       </section>
 
       <section class="grid" id="risk">
