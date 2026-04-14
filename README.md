@@ -41,33 +41,52 @@
 
 ## 安装方式
 
-### Codex
+### 推荐：`npx` 一键安装
 
-有两种常见方式：
+这个 skill 的首选安装方式是直接用 `npx` 通过 `skills` 安装器下发到对应 AI 工具。
 
-- 把整个 `side-router-skill/` 目录放进你的技能仓库中
-- 或复制到 `~/.codex/skills/side-router-skill/`
+安装到本机已支持的工具：
 
-Codex 主要读取：
+```bash
+npx skills add catundercar/side-router-skill --skill side-router-skill -y
+```
 
-- `SKILL.md`
-- `agents/openai.yaml`
+只安装到指定工具：
 
-### Claude Code
+```bash
+# Claude Code
+npx skills add catundercar/side-router-skill --skill side-router-skill -a claude-code -y
 
-项目级使用时，把下面目录带进仓库：
+# Codex
+npx skills add catundercar/side-router-skill --skill side-router-skill -a codex -y
 
-- `.claude/agents/side-router-deploy.md`
+# Cursor
+npx skills add catundercar/side-router-skill --skill side-router-skill -a cursor -y
+```
 
-Claude Code 会从项目内的 `.claude/agents/` 自动发现 subagent。
+同时安装到多个工具：
 
-### Cursor
+```bash
+npx skills add catundercar/side-router-skill --skill side-router-skill \
+  -a claude-code -a codex -a cursor -y
+```
 
-项目级使用时，把下面目录带进仓库：
+前提：
 
-- `.cursor/rules/side-router-deploy.mdc`
+- 本机有 `node` / `npx`
+- 已安装对应的 AI 工具
+- 使用 `skills` 安装器支持的 agent 目录布局
 
-根据 Cursor 官方规则文档，项目规则放在 `.cursor/rules/` 下，`Agent Requested` 类型至少需要 `description`，本仓库已按这一方式组织。
+### 手动安装
+
+只有在不能使用 `npx skills add` 时，才建议手动复制。
+
+- `Codex`
+  - 读取 [SKILL.md](./SKILL.md) 和 [agents/openai.yaml](./agents/openai.yaml)
+- `Claude Code`
+  - 读取 [.claude/agents/side-router-deploy.md](./.claude/agents/side-router-deploy.md)
+- `Cursor`
+  - 读取 [.cursor/rules/side-router-deploy.mdc](./.cursor/rules/side-router-deploy.mdc)
 
 ## 两种使用模式
 

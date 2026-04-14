@@ -450,28 +450,34 @@
           <h2>安装方式</h2>
           <div class="mini-grid">
             <div class="card">
-              <h3>Codex</h3>
-              <p>复制整个目录到技能仓库，或放到 <code>~/.codex/skills/side-router-skill/</code>。</p>
-              <div class="snippet">SKILL.md
-agents/openai.yaml</div>
+              <h3>一键安装</h3>
+              <p>首选安装方式是通过 <code>npx skills add</code> 自动下发到本机已支持的 agent。</p>
+              <div class="snippet">npx skills add catundercar/side-router-skill --skill side-router-skill -y</div>
             </div>
             <div class="card">
               <h3>Claude Code</h3>
-              <p>项目级使用时保留 <code>.claude/agents/side-router-deploy.md</code>。</p>
-              <div class="snippet">.claude/agents/side-router-deploy.md</div>
+              <p>只安装到 Claude Code：</p>
+              <div class="snippet">npx skills add catundercar/side-router-skill --skill side-router-skill -a claude-code -y</div>
             </div>
             <div class="card">
               <h3>Cursor</h3>
-              <p>项目级使用时保留 <code>.cursor/rules/side-router-deploy.mdc</code>。</p>
-              <div class="snippet">.cursor/rules/side-router-deploy.mdc</div>
+              <p>只安装到 Cursor：</p>
+              <div class="snippet">npx skills add catundercar/side-router-skill --skill side-router-skill -a cursor -y</div>
             </div>
             <div class="card">
-              <h3>其他 Agent</h3>
-              <p>不支持专用 skill 结构时，使用 <code>AGENTS.md</code> 和 <code>README.md</code>。</p>
-              <div class="snippet">AGENTS.md
-README.md</div>
+              <h3>Codex</h3>
+              <p>只安装到 Codex：</p>
+              <div class="snippet">npx skills add catundercar/side-router-skill --skill side-router-skill -a codex -y</div>
             </div>
           </div>
+          <div class="snippet"># 同时安装到多个工具
+npx skills add catundercar/side-router-skill --skill side-router-skill \
+  -a claude-code -a codex -a cursor -y</div>
+          <p style="margin-top: 14px">
+            只有在不能使用 <code>npx skills add</code> 时，才建议手动复制仓库中的
+            <code>SKILL.md</code>、<code>.claude/agents/</code> 或
+            <code>.cursor/rules/</code>。
+          </p>
         </article>
       </section>
 
