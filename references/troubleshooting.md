@@ -11,7 +11,7 @@ ss -lntup
 systemctl status clash --no-pager
 systemctl status adguardhome --no-pager
 curl -s http://127.0.0.1:9090/version
-dig @SIDE_ROUTER_IP chatgpt.com +short
+dig @SIDE_ROUTER_IP service.example.com +short
 dig @SIDE_ROUTER_IP lol.qq.com +short
 ```
 
@@ -32,12 +32,12 @@ dig @SIDE_ROUTER_IP lol.qq.com +short
 - TProxy 规则误拦本机流量
 - 对保留网段未做 `RETURN`
 
-### 2. AI 服务打不开，但 Google 正常
+### 2. 指定服务网站打不开，但通用外站正常
 
 常见原因：
 
-- AI 域名没有单独绑定到 AI 专用组
-- `claudeusercontent.com`、`oaistatic.com`、`oaiusercontent.com` 等子域名漏配
+- 指定业务域名没有单独绑定到专用策略组
+- 该服务的静态资源、上传下载或 API 子域名漏配
 
 ### 3. 订阅更新后担心规则被覆盖
 

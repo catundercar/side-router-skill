@@ -30,7 +30,7 @@ ip route
 
 关键约束：
 
-- AI 域名显式绑定到 `AI_US`
+- 指定业务域名显式绑定到专用策略组
 - 腾讯游戏、语音、微信、国内视频等需要同时考虑 `DIRECT` 和 `fake-ip-filter`
 
 参考模板：
@@ -91,12 +91,12 @@ AdGuardHome 上游 DNS 指向 Mihomo：
 systemctl status clash --no-pager
 systemctl status adguardhome --no-pager
 curl -s http://127.0.0.1:9090/version
-dig @SIDE_ROUTER_IP chatgpt.com +short
+dig @SIDE_ROUTER_IP service.example.com +short
 dig @SIDE_ROUTER_IP lol.qq.com +short
 ```
 
 重点判定：
 
-- AI 域名命中 AI 专用组
+- 指定业务域名命中专用策略组
 - 腾讯游戏和语音域名返回真实公网 IP，不是 `198.18.x.x`
 - 本机控制口和局域网控制口都可访问

@@ -2,12 +2,18 @@
 
 [English summary](#english-summary)
 
-面向 Ubuntu 旁路由部署的开源 AI skill，核心场景是：
+面向 Ubuntu 旁路由部署的开源网络运维 skill，核心场景是：
 
 - 规划和审查 `AdGuardHome + Mihomo/Clash Meta + TProxy` 部署
 - 生成部署步骤、配置模板、上线检查单和回滚方案
-- 处理部署后的 DNS、网关、TProxy、`fake-ip`、AI 分流问题
-- 在断网时先恢复网络，再继续让 AI 协助定位问题
+- 处理部署后的 DNS、网关、TProxy、`fake-ip`、指定服务域名策略问题
+- 在断网时先恢复网络，再继续让 agent 协助定位问题
+
+从产品定位上看，它更像一个面向家庭网络和小型团队的“局域网网络策略控制面”：
+
+- 把网关、DNS、透明代理、服务域名策略和兼容性治理集中到一台 Ubuntu 旁路由
+- 让配置、验证、回滚和故障恢复有统一流程，而不是散落在每台终端上
+- 用更稳定、更可审查的方式管理“哪些流量直连、哪些流量走指定策略组”
 
 ## 软路由功能介绍
 
@@ -21,8 +27,8 @@
   - 由 `AdGuardHome -> Mihomo DNS` 统一做广告拦截、分流和域名解析策略
 - 对 TCP 流量做透明代理
   - 通过 `TProxy + iptables + policy routing`，减少每台设备单独配代理的成本
-- 把 AI 相关域名固定送入专用节点池
-  - 例如把 `OpenAI`、`Claude`、`Cursor` 域名固定到美国或台湾节点组
+- 把指定服务域名固定送入专用策略组
+  - 例如把办公、开发或外部 SaaS 服务的域名固定到单独的出口策略
 - 把国内常用服务维持为直连
   - 包括视频、微信、腾讯游戏、语音链路等高兼容性场景
 - 用 `proxy-providers` 管理订阅
@@ -31,11 +37,11 @@
 适合的网络形态：
 
 - 家庭网络统一代理和分流
-- 小型办公网络统一 DNS 与 AI 出口
+- 小型办公网络统一 DNS 与指定业务出口
 - 需要“部分站点代理、部分站点直连”的局域网
 - 不希望每台终端单独装代理客户端的环境
 
-它的核心价值不是“翻墙”本身，而是把网关、DNS、分流策略、AI 出口和兼容性治理集中到一台 Ubuntu 旁路由上。
+它的核心价值不是单个代理规则，而是把网关、DNS、分流策略、指定业务出口和兼容性治理集中到一台 Ubuntu 旁路由上。
 
 ## 高风险提示
 
@@ -52,7 +58,7 @@
 - 关键组件：`AdGuardHome`、`Mihomo/Clash Meta`、`iptables`、`systemd`
 - 常见目标：
   - 让客户端网关和 DNS 指向旁路由
-  - 让 AI 域名固定走台湾/美国节点池
+  - 让指定业务域名固定走专用策略组并具备故障迁移
   - 国内常用服务、腾讯游戏、语音链路默认直连
   - 使用 `proxy-providers` 管理订阅，避免覆盖主配置中的规则和分组
 
@@ -132,7 +138,7 @@ npx skills add catundercar/side-router-skill --skill side-router-skill \
 - 是否接管 DNS
 - 是否启用 `AdGuardHome` / `Mihomo` / `TProxy` / `fake-ip`
 - 节点来源方式：订阅或本地静态配置
-- AI 分流目标：美国、台湾或两者
+- 指定服务域名的出口偏好：主策略组、备用策略组或区域偏好
 
 skill 输出：
 
@@ -171,7 +177,7 @@ LAN 网卡名：
 客户端 DNS 是否指向旁路由：
 使用组件：AdGuardHome / Mihomo / TProxy / fake-ip
 节点来源：订阅 / 本地配置
-AI 分流目标：美国 / 台湾 / 美国+台湾
+指定服务域名出口偏好：主策略组 / 备用策略组 / 区域偏好
 当前症状：
 最近改动：
 是否允许 AI 代执行：
@@ -205,13 +211,13 @@ AI 分流目标：美国 / 台湾 / 美国+台湾
 - 国内视频站提示“关闭 VPN”
 - 腾讯游戏或语音协商异常
 - 微信图片、登录态、下载链路变慢或失败
-- AI 平台网页能打开，但静态资源、上传下载或子域名异常
+- 某些外部 SaaS 网页能打开，但静态资源、上传下载或子域名异常
 
 具体处理见 [references/faq.md](./references/faq.md)。
 
 ## 离线恢复原则
 
-如果部署后没有网络，先恢复网络，再继续让 AI 诊断。
+如果部署后没有网络，先恢复网络，再继续让 agent 诊断。
 
 标准顺序：
 
@@ -219,7 +225,7 @@ AI 分流目标：美国 / 台湾 / 美国+台湾
 2. 临时把测试设备网关改回主路由
 3. 临时把测试设备 DNS 改回主路由或公共 DNS
 4. 验证基础联网恢复
-5. 再把诊断信息贴给 AI
+5. 再把诊断信息贴给 agent
 
 详细流程见 [references/offline-recovery.md](./references/offline-recovery.md)。
 
@@ -234,7 +240,7 @@ AI 分流目标：美国 / 台湾 / 美国+台湾
 
 ## English Summary
 
-This repository packages an open-source AI skill for Ubuntu side-router deployments using AdGuardHome, Mihomo/Clash Meta, and TProxy.
+This repository packages an open-source network operations skill for Ubuntu side-router deployments using AdGuardHome, Mihomo/Clash Meta, and TProxy.
 
 Primary use cases:
 

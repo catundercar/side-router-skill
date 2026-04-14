@@ -58,13 +58,13 @@ proxy-providers:
       url: http://www.gstatic.com/generate_204
 
 proxy-groups:
-  - name: AI_US
+  - name: SERVICE_PRIMARY
     type: fallback
     url: http://www.gstatic.com/generate_204
     interval: 900
     use:
       - my-subscription
-    filter: "(?i)(台湾|美国|Taiwan|TW|US|USA|United[ _-]?States)"
+    filter: "(?i)(Region-A|Region-B|Preferred|Primary)"
 
   - name: DEFAULT_AUTO
     type: url-test
@@ -73,7 +73,7 @@ proxy-groups:
     tolerance: 50
     use:
       - my-subscription
-    filter: "(?i)(台湾|美国|Taiwan|TW|US|USA|United[ _-]?States)"
+    filter: "(?i)(Region-A|Region-B|Preferred|Primary)"
 
   - name: DEFAULT
     type: select
@@ -82,15 +82,10 @@ proxy-groups:
       - DIRECT
 
 rules:
-  - DOMAIN-SUFFIX,claude.ai,AI_US
-  - DOMAIN-SUFFIX,anthropic.com,AI_US
-  - DOMAIN-SUFFIX,claudeusercontent.com,AI_US
-  - DOMAIN-SUFFIX,openai.com,AI_US
-  - DOMAIN-SUFFIX,chatgpt.com,AI_US
-  - DOMAIN-SUFFIX,oaistatic.com,AI_US
-  - DOMAIN-SUFFIX,oaiusercontent.com,AI_US
-  - DOMAIN-SUFFIX,cursor.com,AI_US
-  - DOMAIN-SUFFIX,cursor.sh,AI_US
+  - DOMAIN-SUFFIX,service.example.com,SERVICE_PRIMARY
+  - DOMAIN-SUFFIX,api.service.example.com,SERVICE_PRIMARY
+  - DOMAIN-SUFFIX,static.service.example.com,SERVICE_PRIMARY
+  - DOMAIN-SUFFIX,assets.service.example.com,SERVICE_PRIMARY
   - DOMAIN-SUFFIX,qq.com,DIRECT
   - DOMAIN-SUFFIX,tencent.com,DIRECT
   - DOMAIN-SUFFIX,qpic.cn,DIRECT

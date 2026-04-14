@@ -6,7 +6,7 @@
     <title>Side Router Skill</title>
     <meta
       name="description"
-      content="Deploy-first AI skill for Ubuntu side routers with AdGuardHome, Mihomo/Clash Meta, and TProxy."
+      content="Deploy-first network operations skill for Ubuntu side routers with AdGuardHome, Mihomo/Clash Meta, and TProxy."
     />
     <meta name="theme-color" content="#f5eee0" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
@@ -15,7 +15,7 @@
     <meta property="og:title" content="Side Router Skill" />
     <meta
       property="og:description"
-      content="一个面向 Ubuntu 旁路由部署的开源 AI skill，覆盖 AdGuardHome、Mihomo / Clash Meta、TProxy、fake-ip、上线检查和离线恢复。"
+      content="一个面向 Ubuntu 旁路由部署的开源网络策略 skill，覆盖 AdGuardHome、Mihomo / Clash Meta、TProxy、fake-ip、上线检查和离线恢复。"
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://catundercar.github.io/side-router-skill/" />
@@ -28,7 +28,7 @@
     <meta name="twitter:title" content="Side Router Skill" />
     <meta
       name="twitter:description"
-      content="Deploy-first AI skill for Ubuntu side routers with AdGuardHome, Mihomo / Clash Meta, and TProxy."
+      content="Deploy-first network operations skill for Ubuntu side routers with AdGuardHome, Mihomo / Clash Meta, and TProxy."
     />
     <meta
       name="twitter:image"
@@ -392,11 +392,11 @@
     <main class="wrap" id="top">
       <section class="hero">
         <div class="hero-card">
-          <div class="eyebrow">Deploy-first AI Skill</div>
+          <div class="eyebrow">Deploy-first Network Policy Skill</div>
           <h1>Side Router Skill</h1>
           <p class="lede">
-            一个面向 Ubuntu 旁路由部署的开源 AI skill。它优先解决部署规划、配置生成、上线检查和回滚设计，
-            同时覆盖 DNS、网关、TProxy、fake-ip、AI 分流以及断网后的恢复指引。
+            一个面向 Ubuntu 旁路由部署的开源网络策略 skill。它优先解决部署规划、配置生成、上线检查和回滚设计，
+            同时覆盖 DNS、网关、TProxy、fake-ip、指定服务域名策略以及断网后的恢复指引。
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="https://github.com/catundercar/side-router-skill">GitHub 仓库</a>
@@ -422,7 +422,7 @@
             <li>接管局域网设备默认网关，让所有流量先进入旁路由再做统一分流。</li>
             <li>接管 DNS，把 <code>AdGuardHome -&gt; Mihomo DNS</code> 串成一条稳定的解析与过滤链路。</li>
             <li>用 <code>TProxy + iptables + policy routing</code> 对 TCP 流量做透明代理，减少终端逐台配置。</li>
-            <li>给 AI 相关域名配置专用节点池，让 OpenAI、Claude、Cursor 的出口更稳定。</li>
+            <li>给指定服务域名配置专用策略组，让办公、开发或外部 SaaS 的出口更稳定。</li>
             <li>让国内视频、微信、腾讯游戏、语音链路优先直连，降低 fake-ip 和误代理带来的兼容性问题。</li>
             <li>用 <code>proxy-providers</code> 管理订阅，把节点更新和主配置分离，避免规则被覆盖。</li>
           </ul>
@@ -433,11 +433,11 @@
           <div class="stack">
             <div class="card">
               <h3>家庭网络</h3>
-              <p>统一 DNS、分流和 AI 出口，不需要每台终端分别装代理。</p>
+              <p>统一 DNS、分流和指定业务出口，不需要每台终端分别装代理。</p>
             </div>
             <div class="card">
               <h3>小型办公网络</h3>
-              <p>对 AI 工具和常用外站做统一出口治理，同时保留国内服务直连。</p>
+              <p>对开发、办公或外部 SaaS 工具做统一出口治理，同时保留国内服务直连。</p>
             </div>
             <div class="card">
               <h3>高兼容性场景</h3>
@@ -468,7 +468,7 @@
             </div>
             <div class="card">
               <h3>审查现有部署</h3>
-              <p>检查网关接管、DNS 链路、TProxy 和 AI 分流是否合理。</p>
+              <p>检查网关接管、DNS 链路、TProxy 和服务域名策略是否合理。</p>
             </div>
             <div class="card">
               <h3>断网恢复</h3>
@@ -524,7 +524,7 @@ npx skills add catundercar/side-router-skill --skill side-router-skill \
             <li>LAN 网卡名</li>
             <li>是否接管网关与 DNS</li>
             <li>是否启用 AdGuardHome / Mihomo / TProxy / fake-ip</li>
-            <li>节点来源方式与 AI 分流目标</li>
+            <li>节点来源方式与指定服务域名的出口偏好</li>
           </ul>
         </article>
 
@@ -550,7 +550,7 @@ LAN 网卡名：
 客户端 DNS 是否指向旁路由：
 使用组件：AdGuardHome / Mihomo / TProxy / fake-ip
 节点来源：订阅 / 本地配置
-AI 分流目标：美国 / 台湾 / 美国+台湾
+指定服务域名出口偏好：主策略组 / 备用策略组 / 区域偏好
 当前症状：
 最近改动：
 是否允许 AI 代执行：
@@ -571,8 +571,8 @@ AI 分流目标：美国 / 台湾 / 美国+台湾
             </div>
             <div class="card">
               <h3>审查现有配置</h3>
-              <div class="snippet">审查我的旁路由配置，重点看 fake-ip、AI_US 分流、
-腾讯语音直连、策略路由持久化是否完整。
+              <div class="snippet">审查我的旁路由配置，重点看 fake-ip、指定服务策略组、
+国内语音直连、策略路由持久化是否完整。
 下面是 dns、proxy-groups、rules 和 systemd 配置片段：...</div>
             </div>
             <div class="card">
@@ -583,7 +583,7 @@ AI 分流目标：美国 / 台湾 / 美国+台湾
             </div>
             <div class="card">
               <h3>fake-ip 排障</h3>
-              <div class="snippet">AI 网站能打开，但 claudeusercontent.com 和 oaistatic.com 异常，
+              <div class="snippet">某个外部服务官网能打开，但它的静态资源子域名异常，
 同时微信图片变慢。请判断是 fake-ip、DIRECT 规则还是 DNS 链路问题，
 并给我逐步验证方法。</div>
             </div>
@@ -639,7 +639,7 @@ AI 分流目标：美国 / 台湾 / 美国+台湾
 
       <div class="footer">
         <p>
-          Open-source deployment-first AI skill for Ubuntu side routers. Prefer planning before execution.
+          Open-source deployment-first network operations skill for Ubuntu side routers. Prefer planning before execution.
         </p>
       </div>
     </main>
